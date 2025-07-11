@@ -1,7 +1,18 @@
-import React from "react";
+import { getSession } from "@/lib/session";
+import { redirect } from "next/navigation";
 
-const Dashboard = () => {
-  return <div>Dashboard</div>;
+const Dashboard = async () => {
+  const session = await getSession();
+
+  if (!session?.user) {
+    redirect("/login");
+  }
+
+  return (
+    <div>
+      <h1>Welcome, {session.user.name || session.user.email}</h1>
+    </div>
+  );
 };
 
 export default Dashboard;

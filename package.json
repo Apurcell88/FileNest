@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "clean:sessions": "node scripts/cleanupSessions.js"
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.7",
