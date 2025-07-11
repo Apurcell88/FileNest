@@ -69,7 +69,12 @@ const RegisterPage = () => {
         >
           Register
         </button>
-        {message && <p>{message}</p>}
+        <button
+          className="w-full border border-white text-white p-2 rounded hover:bg-white hover:text-blue-600 transition"
+          onClick={() => router.push("/")}
+        >
+          Cancel
+        </button>
       </form>
     </div>
   );
