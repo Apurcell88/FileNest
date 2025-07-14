@@ -1,32 +1,30 @@
-"use client";
-
-import { useEffect, useState } from "react";
+import { getSession } from "@/lib/session";
+import { PrismaClient } from "@/generated/prisma";
+import { redirect, revalidatePath } from "next/navigation";
 import CreateFolderBtn from "@/components/CreateFolderBtn";
+import Nav from "@/components/Nav";
+import { createFolder } from "./actions";
 
-export default function DashboardPage() {
-  const [folders, setFolders] = useState([]);
-  const [user, setUser] = useState(null);
+export default async function DashboardPage() {
+  const prisma = new PrismaClient();
+  const session = await getSession();
 
-  // Fetch folders on mount
-  useEffect(() => {
-    async function fetchData() {
-      const res = await fetch("/api/folders"); // you'll need this route
-      const data = await res.json();
-      setFolders(data.folders);
-      setUser(data.user);
-    }
+  if (!session?.user) {
+    redirect("/login");
+  }
 
-    fetchData();
-  }, []);
+  const folders = await prisma.folder.findMany({
+    where: { userId: session.user.id },
+    include: { files: true },
+  });
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
+      <Nav />
       <h1 className="text-3xl font-bold mb-4">
-        Welcome, {user?.name || user?.email}
+        Welcome, {session.user?.name || session.user?.email}
       </h1>
-      <CreateFolderBtn
-        onCreate={(newFolder) => setFolders((prev) => [...prev, newFolder])}
-      />
+      <CreateFolderBtn createFolder={createFolder} />
 
       <div className="mt-6 space-y-2">
         {folders.map((folder) => (

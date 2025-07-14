@@ -1,7 +1,7 @@
 import { getSession } from "@/lib/session";
 import { PrismaClient } from "@/generated/prisma";
 
-const prisma = PrismaClient();
+const prisma = new PrismaClient();
 
 export async function GET() {
   const user = await getSession();

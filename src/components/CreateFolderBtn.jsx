@@ -2,41 +2,33 @@
 
 import { useState } from "react";
 
-export default function CreateFolderBtn({ onCreate }) {
+export default function CreateFolderBtn({ createFolder }) {
   const [folderName, setFolderName] = useState("");
 
-  const handleCreate = async () => {
-    if (!folderName) return;
+  async function handleCreate() {
+    if (!folderName.trim()) return;
 
-    const res = await fetch("/api/folders", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name: folderName }),
-    });
+    const formData = new FormData();
+    formData.append("name", folderName);
 
-    const data = await res.json();
-    if (res.ok) {
-      onCreate(data.folder); // Send new folder back up
-      setFolderName(""); // Clear input
-    } else {
-      console.error(data.error);
-    }
-  };
+    await createFolder(formData);
+    setFolderName(""); // clear input after creation
+  }
 
   return (
     <div className="flex space-x-2 mt-4">
       <input
         type="text"
-        placeholder="Folder name"
-        className="p-2 rounded border"
         value={folderName}
         onChange={(e) => setFolderName(e.target.value)}
+        placeholder="Folder Name"
+        className="border p-2 rounded text-black"
       />
       <button
         onClick={handleCreate}
         className="bg-blue-600 text-white px-4 py-2 rounded"
       >
-        Create
+        Create Folder
       </button>
     </div>
   );
