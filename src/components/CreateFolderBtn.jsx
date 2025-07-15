@@ -22,11 +22,11 @@ export default function CreateFolderBtn({ createFolder }) {
         value={folderName}
         onChange={(e) => setFolderName(e.target.value)}
         placeholder="Folder Name"
-        className="border p-2 rounded text-black"
+        className="border p-2 rounded text-white"
       />
       <button
         onClick={handleCreate}
-        className="bg-blue-600 text-white px-4 py-2 rounded"
+        className="bg-blue-600 text-white px-4 py-2 rounded border border-white"
       >
         Create Folder
       </button>
