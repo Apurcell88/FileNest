@@ -7,6 +7,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { getSession } from "@/lib/session";
+import LogoutBtn from "@/components/LogoutBtn";
 
 const Nav = async () => {
   const session = await getSession();
@@ -32,9 +33,7 @@ const Nav = async () => {
           ) : (
             <>
               <DropdownMenuItem>
-                <form action="/api/auth/logout" method="POST">
-                  <button type="submit">Logout</button>
-                </form>
+                <LogoutBtn />
               </DropdownMenuItem>
             </>
           )}
