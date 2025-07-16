@@ -3,7 +3,8 @@ import { PrismaClient } from "@/generated/prisma";
 import { redirect, revalidatePath } from "next/navigation";
 import CreateFolderBtn from "@/components/CreateFolderBtn";
 import Nav from "@/components/Nav";
-import UploadFileBtn from "@/components/UploadFileBtn";
+import Folders from "@/components/Folders";
+
 import { createFolder } from "./actions";
 
 export default async function DashboardPage() {
@@ -28,7 +29,7 @@ export default async function DashboardPage() {
       <CreateFolderBtn createFolder={createFolder} />
 
       <div className="mt-6 space-y-2">
-        {folders.map((folder) => (
+        {/* {folders.map((folder) => (
           <div
             key={folder.id}
             className="p-4 bg-white text-black rounded shadow-md"
@@ -37,7 +38,8 @@ export default async function DashboardPage() {
             <p>{folder.files?.length ?? 0} files</p>
             <UploadFileBtn folderId={folder.id} />
           </div>
-        ))}
+        ))} */}
+        <Folders folders={folders} />
       </div>
     </div>
   );
