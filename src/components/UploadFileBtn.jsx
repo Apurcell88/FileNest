@@ -58,11 +58,16 @@ const UploadFileBtn = ({ folderId }) => {
 
   return (
     <div className="space-x-2 mt-2">
-      <input type="file" onChange={handleFileChange} ref={fileInputRef} />
+      <input
+        type="file"
+        onChange={handleFileChange}
+        ref={fileInputRef}
+        className="cursor-pointer"
+      />
       <button
         onClick={handleUpload}
         disabled={isPending}
-        className="bg-blue-600 text-white px-4 py-2 rounded"
+        className="bg-blue-600 text-white px-4 py-2 rounded cursor-pointer"
       >
         {isPending ? "Uploading..." : "Upload"}
       </button>

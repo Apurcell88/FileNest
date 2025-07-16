@@ -2,10 +2,14 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 import UploadFileBtn from "./UploadFileBtn";
 
 const Folders = ({ folders }) => {
   const [openFolderId, setOpenFolderId] = useState(null);
+
+  const router = useRouter();
 
   const toggleFolder = (folderId) => {
     setOpenFolderId((prev) => (prev === folderId ? null : folderId));
@@ -13,6 +17,26 @@ const Folders = ({ folders }) => {
 
   const getDownloadUrl = (cloudUrl) => {
     return cloudUrl.replace("/upload/", "/upload/fl_attachment/");
+  };
+
+  const handleDeleteFolder = async (folderId) => {
+    if (!confirm("Are you sure you want to delete this folder?")) return;
+
+    try {
+      const res = await fetch(`/api/folders/${folderId}`, {
+        method: "DELETE",
+      });
+
+      if (res.ok) {
+        toast.success("Folder deleted!");
+        router.refresh();
+      } else {
+        toast.error("Failed to delete folder.");
+      }
+    } catch (err) {
+      toast.error("An error occured");
+      console.error("Failed to delete folder:", err);
+    }
   };
 
   return (
@@ -28,6 +52,14 @@ const Folders = ({ folders }) => {
           >
             📁 {folder.name}
           </h2>
+          <button
+            className="bg-red-600 text-white text-xs rounded px-3 py-1 my-2 cursor-pointer hover:bg-red-700"
+            onClick={() => {
+              handleDeleteFolder(folder.id);
+            }}
+          >
+            Delete
+          </button>
           <p>{folder.files?.length ?? 0} file(s)</p>
           <UploadFileBtn folderId={folder.id} />
 
