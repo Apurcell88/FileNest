@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useRef, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 const UploadFileBtn = ({ folderId }) => {
   const [isPending, startTransition] = useTransition();
   const [file, setFile] = useState(null);
+  const fileInputRef = useRef(null);
   const router = useRouter();
 
   const handleFileChange = (e) => {
@@ -50,11 +51,14 @@ const UploadFileBtn = ({ folderId }) => {
     });
 
     setFile(null); // clear file after upload
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
   return (
     <div className="space-x-2 mt-2">
-      <input type="file" onChange={handleFileChange} />
+      <input type="file" onChange={handleFileChange} ref={fileInputRef} />
       <button
         onClick={handleUpload}
         disabled={isPending}

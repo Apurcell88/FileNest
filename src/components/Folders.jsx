@@ -23,14 +23,22 @@ const Folders = ({ folders }) => {
           >
             📁 {folder.name}
           </h2>
-          <p>{folder.files?.length ?? 0}</p>
-          <UploadFileBtn />
+          <p>{folder.files?.length ?? 0} file(s)</p>
+          <UploadFileBtn folderId={folder.id} />
 
           {openFolderId === folder.id && (
             <div className="ml-4 mt-2 space=y=1">
               {folder.files.length > 0 ? (
                 folder.files.map((file) => (
                   <div key={file.id} className="p-2 bg-gray-100 rounded">
+                    <img
+                      src={file.url.replace(
+                        "/upload/",
+                        "/upload/w_200,h_200,c_fill/"
+                      )}
+                      alt={file.name}
+                      className="w-20 h-20 object-cover"
+                    />
                     <a
                       href={file.url}
                       target="_blank"
