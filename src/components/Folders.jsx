@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import UploadFileBtn from "./UploadFileBtn";
 
 const Folders = ({ folders }) => {
@@ -30,41 +31,49 @@ const Folders = ({ folders }) => {
           <p>{folder.files?.length ?? 0} file(s)</p>
           <UploadFileBtn folderId={folder.id} />
 
-          {openFolderId === folder.id && (
-            <div className="ml-4 mt-2 space=y=1">
-              {folder.files.length > 0 ? (
-                folder.files.map((file) => (
-                  <div key={file.id} className="p-2 bg-gray-100 rounded">
-                    <img
-                      src={file.url.replace(
-                        "/upload/",
-                        "/upload/w_200,h_200,c_fill/"
-                      )}
-                      alt={file.name}
-                      className="w-20 h-20 object-cover"
-                    />
-                    <a
-                      href={file.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {file.name}
-                    </a>
-                    <a
-                      href={getDownloadUrl(file.url)}
-                      className="bg-green-600 text-white px-2 py-1 rounded text-sm block w-[25%]"
-                    >
-                      Download
-                    </a>
-                  </div>
-                ))
-              ) : (
-                <p className="text-sm text-gray-500">
-                  No files in this folder.
-                </p>
-              )}
-            </div>
-          )}
+          <AnimatePresence>
+            {openFolderId === folder.id && (
+              <motion.div
+                className="ml-4 mt-2 space-y-1"
+                initial={{ opacity: 0, height: 0, y: -10 }}
+                animate={{ opacity: 1, height: "auto", y: 0 }}
+                exit={{ opacity: 0, height: 0, y: -10 }}
+                transition={{ duration: 0.2 }}
+              >
+                {folder.files.length > 0 ? (
+                  folder.files.map((file) => (
+                    <div key={file.id} className="p-2 bg-gray-100 rounded">
+                      <img
+                        src={file.url.replace(
+                          "/upload/",
+                          "/upload/w_200,h_200,c_fill/"
+                        )}
+                        alt={file.name}
+                        className="w-20 h-20 object-cover"
+                      />
+                      <a
+                        href={file.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {file.name}
+                      </a>
+                      <a
+                        href={getDownloadUrl(file.url)}
+                        className="bg-green-600 text-white px-2 py-1 rounded text-sm block w-[25%]"
+                      >
+                        Download
+                      </a>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-sm text-gray-500">
+                    No files in this folder.
+                  </p>
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       ))}
     </div>
