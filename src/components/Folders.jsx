@@ -10,6 +10,10 @@ const Folders = ({ folders }) => {
     setOpenFolderId((prev) => (prev === folderId ? null : folderId));
   };
 
+  const getDownloadUrl = (cloudUrl) => {
+    return cloudUrl.replace("/upload/", "/upload/fl_attachment/");
+  };
+
   return (
     <div className="mt-6 space-y-2">
       {folders.map((folder) => (
@@ -45,6 +49,12 @@ const Folders = ({ folders }) => {
                       rel="noopener noreferrer"
                     >
                       {file.name}
+                    </a>
+                    <a
+                      href={getDownloadUrl(file.url)}
+                      className="bg-green-600 text-white px-2 py-1 rounded text-sm block w-[25%]"
+                    >
+                      Download
                     </a>
                   </div>
                 ))
