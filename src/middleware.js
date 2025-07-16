@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
+import { getSession } from "./lib/session";
 
 export const config = {
   matcher: ["/", "/dashboard"],
 };
 
-export function middleware(req) {
+export async function middleware(req) {
   const sessionId = req.cookies.get("session_id")?.value;
   console.log("sessionId in middleware:", sessionId);
   const { pathname } = req.nextUrl;

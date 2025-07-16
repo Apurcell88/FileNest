@@ -39,6 +39,7 @@ const UploadFileBtn = ({ folderId }) => {
     formData.append("fileSize", file.size);
     formData.append("folderId", folderId);
     formData.append("fileUrl", cloudData.secure_url);
+    formData.append("publicId", cloudData.public_id);
 
     await fetch("/api/files", {
       method: "POST",

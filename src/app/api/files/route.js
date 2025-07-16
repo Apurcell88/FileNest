@@ -15,6 +15,7 @@ export async function POST(req) {
   const fileSize = formData.get("fileSize");
   const folderId = formData.get("folderId");
   const fileUrl = formData.get("fileUrl");
+  const publicId = formData.get("publicId");
 
   if (!fileName || !folderId) {
     return NextResponse.json({ error: "Missing fields" }, { status: 400 });
@@ -25,6 +26,7 @@ export async function POST(req) {
       name: fileName,
       size: parseInt(fileSize),
       url: fileUrl,
+      publicId,
       folderId,
       userId: session.user.id,
     },

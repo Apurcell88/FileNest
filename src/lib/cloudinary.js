@@ -6,4 +6,8 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+export async function deleteCloudinaryFile(publicId) {
+  return cloudinary.v2.uploader.destroy(publicId);
+}
+
 export default cloudinary;
