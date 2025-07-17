@@ -8,6 +8,7 @@ import UploadFileBtn from "./UploadFileBtn";
 
 const Folders = ({ folders }) => {
   const [openFolderId, setOpenFolderId] = useState(null);
+  const [deletingFileId, setDeletingFileId] = useState(null);
 
   const router = useRouter();
 
@@ -42,6 +43,7 @@ const Folders = ({ folders }) => {
   const handleDeleteFile = async (fileId) => {
     if (!confirm("Are you sure you want to delete this file?")) return;
 
+    setDeletingFileId(fileId);
     try {
       const res = await fetch(`/api/files/${fileId}`, {
         method: "DELETE",
@@ -56,6 +58,8 @@ const Folders = ({ folders }) => {
       toast.error("An error occured");
       console.error("Failed to delete file:", err);
     }
+
+    setDeletingFileId(null);
   };
 
   return (
@@ -119,7 +123,7 @@ const Folders = ({ folders }) => {
                         className="bg-red-500 text-white px-2 py-1 rounded text-sm ml-2 mt-2"
                         onClick={() => handleDeleteFile(file.id)}
                       >
-                        Delete
+                        {deletingFileId === file.id ? "Deleting..." : "Delete"}
                       </button>
                     </div>
                   ))
