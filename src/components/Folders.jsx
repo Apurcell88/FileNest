@@ -63,33 +63,36 @@ const Folders = ({ folders }) => {
   };
 
   return (
-    <div className="mt-6 space-y-2">
+    <div className="mt-6 space-y-4">
       {folders.map((folder) => (
         <div
           key={folder.id}
-          className="p-4 bg-white text-black rounded shadow-md"
+          className="p-4 bg-white text-black rounded shadow-md md:flex md:justify-between md:items-center"
         >
-          <h2
-            className="text-lg font-semibold cursor-pointer"
-            onClick={() => toggleFolder(folder.id)}
-          >
-            📁 {folder.name}
-          </h2>
+          <div>
+            <h2
+              className="text-lg font-semibold cursor-pointer"
+              onClick={() => toggleFolder(folder.id)}
+            >
+              📁 {folder.name}
+            </h2>
+            <p className="text-sm text-gray-600">
+              {folder.files?.length ?? 0} file(s)
+            </p>
+            <UploadFileBtn folderId={folder.id} />
+          </div>
+
           <button
-            className="bg-red-600 text-white text-xs rounded px-3 py-1 my-2 cursor-pointer hover:bg-red-700"
-            onClick={() => {
-              handleDeleteFolder(folder.id);
-            }}
+            className="bg-red-600 text-white text-xs rounded px-3 py-1 mt-2 md:mt-0 hover:bg-red-700"
+            onClick={() => handleDeleteFolder(folder.id)}
           >
             Delete
           </button>
-          <p>{folder.files?.length ?? 0} file(s)</p>
-          <UploadFileBtn folderId={folder.id} />
 
           <AnimatePresence>
             {openFolderId === folder.id && (
               <motion.div
-                className="ml-4 mt-2 space-y-1"
+                className="ml-4 mt-4 space-y-3 md:pr-5 md:space-y-2 md:grid md:grid-cols-2 md:gap-4"
                 initial={{ opacity: 0, height: 0, y: -10 }}
                 animate={{ opacity: 1, height: "auto", y: 0 }}
                 exit={{ opacity: 0, height: 0, y: -10 }}
@@ -97,34 +100,44 @@ const Folders = ({ folders }) => {
               >
                 {folder.files.length > 0 ? (
                   folder.files.map((file) => (
-                    <div key={file.id} className="p-2 bg-gray-100 rounded">
+                    <div
+                      key={file.id}
+                      className="p-4 rounded flex items-center space-x-3"
+                    >
                       <img
                         src={file.url.replace(
                           "/upload/",
-                          "/upload/w_200,h_200,c_fill/"
+                          "/upload/w_100,h_100,c_fill/"
                         )}
                         alt={file.name}
-                        className="w-20 h-20 object-cover"
+                        className="w-16 h-16 object-cover rounded"
                       />
-                      <a
-                        href={file.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {file.name}
-                      </a>
-                      <a
-                        href={getDownloadUrl(file.url)}
-                        className="bg-green-600 text-white px-2 py-1 rounded text-sm block w-[25%]"
-                      >
-                        Download
-                      </a>
-                      <button
-                        className="bg-red-500 text-white px-2 py-1 rounded text-sm ml-2 mt-2"
-                        onClick={() => handleDeleteFile(file.id)}
-                      >
-                        {deletingFileId === file.id ? "Deleting..." : "Delete"}
-                      </button>
+                      <div className="flex-1">
+                        <a
+                          href={file.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm font-medium text-blue-600 block truncate max-w-[130px]"
+                        >
+                          {file.name}
+                        </a>
+                        <div className="flex space-x-2 mt-1">
+                          <a
+                            href={getDownloadUrl(file.url)}
+                            className="bg-green-600 text-white px-2 py-1 rounded text-xs"
+                          >
+                            Download
+                          </a>
+                          <button
+                            className="bg-red-500 text-white px-2 py-1 rounded text-xs"
+                            onClick={() => handleDeleteFile(file.id)}
+                          >
+                            {deletingFileId === file.id
+                              ? "Deleting..."
+                              : "Delete"}
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   ))
                 ) : (

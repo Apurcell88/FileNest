@@ -36,46 +36,51 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="p-6 max-w-md mx-auto h-screen pt-8 bg-gradient-to-r from-blue-900  to-blue-400 ">
-      <h1 className="text-3xl text-white font-bold mb-6 text-center">
-        Register
-      </h1>
-      <form onSubmit={handleRegister} className="space-y-4">
-        <input
-          className="w-full p-2 border rounded text-white"
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          className="w-full p-2 border rounded text-white"
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          className="w-full p-2 border rounded text-white"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white p-2 rounded"
-        >
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-900 to-blue-400 px-4">
+      <div className="w-full max-w-md bg-white/10 backdrop-blur-sm p-8 rounded-lg shadow-lg">
+        <h1 className="text-3xl text-white font-bold mb-6 text-center">
           Register
-        </button>
-        <button
-          className="w-full border border-white text-white p-2 rounded hover:bg-white hover:text-blue-600 transition"
-          onClick={() => router.push("/")}
-        >
-          Cancel
-        </button>
-      </form>
+        </h1>
+        <form onSubmit={handleRegister} className="space-y-4">
+          <input
+            className="w-full p-3 border border-gray-300 rounded bg-white/20 text-white placeholder-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-300"
+            type="text"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <input
+            className="w-full p-3 border border-gray-300 rounded bg-white/20 text-white placeholder-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-300"
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input
+            className="w-full p-3 border border-gray-300 rounded bg-white/20 text-white placeholder-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-300"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <button
+            type="submit"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white p-3 rounded font-medium transition"
+          >
+            Register
+          </button>
+          <button
+            type="button"
+            className="w-full border border-white text-white p-3 rounded hover:bg-white hover:text-blue-600 transition"
+            onClick={() => router.push("/")}
+          >
+            Cancel
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

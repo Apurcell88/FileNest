@@ -21,15 +21,18 @@ export default async function DashboardPage() {
   });
 
   return (
-    <div className="p-6 max-w-4xl mx-auto bg-gradient-to-br from-blue-900 via-blue-600 to-blue-400 min-h-screen">
-      <Nav />
-      <h1 className="text-3xl font-bold my-4 text-gray-300">
-        Welcome, {session.user?.name || session.user?.email}
-      </h1>
-      <CreateFolderBtn createFolder={createFolder} />
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-600 to-blue-400 px-4 py-6">
+      <div className="max-w-4xl mx-auto bg-white/10 backdrop-blur-sm rounded-lg shadow-lg p-6">
+        <Nav />
+        <h1 className="text-3xl font-bold my-4 text-white">
+          Welcome, {session.user?.name || session.user?.email}
+        </h1>
 
-      <div className="mt-6 space-y-2">
-        <Folders folders={folders} />
+        <CreateFolderBtn createFolder={createFolder} />
+
+        <div className="mt-6 space-y-2">
+          <Folders folders={folders} />
+        </div>
       </div>
     </div>
   );

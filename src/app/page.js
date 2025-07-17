@@ -22,18 +22,21 @@ const features = [
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-900  to-blue-400 font-[family-name:var(--font-geist-sans)]">
+    <div className="min-h-screen bg-gradient-to-r from-blue-900 to-blue-400 font-[family-name:var(--font-geist-sans)]">
       <Nav />
-      <main className="">
-        <div className="text-center text-white px-4 mt-18">
-          <h1 className="text-6xl font-semibold tracking-tight">FileNest</h1>
-          <p className="mt-8">
+      <main className="max-w-5xl mx-auto px-4 md:px-8">
+        <div className="text-center text-white mt-20 md:mt-32">
+          <h1 className="text-4xl md:text-6xl font-semibold tracking-tight">
+            FileNest
+          </h1>
+          <p className="mt-6 md:mt-8 text-base md:text-lg max-w-2xl mx-auto">
             Secure, simple file management - Create folders, upload your files,
             and access them anywhere. Organize your digital life effortlessly
             with FileNest.
           </p>
         </div>
-        <div className="mt-18 pb-4 px-4 flex flex-col gap-6 items-center">
+
+        <div className="mt-16 md:mt-24 pb-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {features.map((feature, i) => (
             <HomepageCard
               key={i}
