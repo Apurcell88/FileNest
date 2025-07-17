@@ -24,6 +24,7 @@ export default async function DashboardPage() {
     <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-600 to-blue-400 px-4 py-6">
       <div className="max-w-4xl mx-auto bg-white/10 backdrop-blur-sm rounded-lg shadow-lg p-6">
         <Nav />
+
         <h1 className="text-3xl font-bold my-4 text-white">
           Welcome, {session.user?.name || session.user?.email}
         </h1>
