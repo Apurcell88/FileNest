@@ -39,6 +39,25 @@ const Folders = ({ folders }) => {
     }
   };
 
+  const handleDeleteFile = async (fileId) => {
+    if (!confirm("Are you sure you want to delete this file?")) return;
+
+    try {
+      const res = await fetch(`/api/files/${fileId}`, {
+        method: "DELETE",
+      });
+      if (res.ok) {
+        toast.success("File deleted");
+        router.refresh();
+      } else {
+        toast.error("Failed to delete file");
+      }
+    } catch (err) {
+      toast.error("An error occured");
+      console.error("Failed to delete file:", err);
+    }
+  };
+
   return (
     <div className="mt-6 space-y-2">
       {folders.map((folder) => (
@@ -96,6 +115,12 @@ const Folders = ({ folders }) => {
                       >
                         Download
                       </a>
+                      <button
+                        className="bg-red-500 text-white px-2 py-1 rounded text-sm ml-2 mt-2"
+                        onClick={() => handleDeleteFile(file.id)}
+                      >
+                        Delete
+                      </button>
                     </div>
                   ))
                 ) : (

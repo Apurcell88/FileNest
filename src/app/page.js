@@ -22,7 +22,7 @@ const features = [
 
 export default function Home() {
   return (
-    <div className="h-full bg-gradient-to-r from-blue-900  to-blue-400 font-[family-name:var(--font-geist-sans)]">
+    <div className="min-h-screen bg-gradient-to-r from-blue-900  to-blue-400 font-[family-name:var(--font-geist-sans)]">
       <Nav />
       <main className="">
         <div className="text-center text-white px-4 mt-18">
