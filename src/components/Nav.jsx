@@ -15,7 +15,7 @@ const Nav = async () => {
   return (
     <nav className="flex justify-end">
       <DropdownMenu>
-        <DropdownMenuTrigger className="hover:cursor-pointer mt-4 mr-6 md:mt-12 md:mr-12 rotate-90 text-3xl md:text-4xl text-white">
+        <DropdownMenuTrigger className="hover:cursor-pointer mt-2 mr-2 md:mt-12 md:mr-12 rotate-90 text-3xl md:text-4xl text-white">
           |||
         </DropdownMenuTrigger>
         <DropdownMenuContent>
